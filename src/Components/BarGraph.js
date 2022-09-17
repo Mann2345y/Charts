@@ -26,7 +26,12 @@ const BarGraph = () => {
   var malic_acid_average_3 = malic_acid_3_sum / malic_acid_3_count;
 
   const option = {
-    xAxis: { name: "Alcohol", type: "category", data: ["1", "2", "3"] },
+    xAxis: {
+      name: "Alcohol",
+      type: "category",
+      data: ["1", "2", "3"],
+      nameGap: 20,
+    },
     yAxis: { name: "Malic Acid (Average)", type: "value" },
     color: ["#4ecca3"],
     backgroundColor: "rgb(29,30,40)",
@@ -60,16 +65,15 @@ const BarGraph = () => {
     option && myChart.setOption(option);
   }, []);
   return (
-    <div>
+    <>
       <div
         id="bargraph"
         style={{
-          width: "500px",
-          minWidth: "100%",
-          height: "400px",
+          width: "100%",
+          height: "100%",
         }}
       ></div>
-    </div>
+    </>
   );
 };
 

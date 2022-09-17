@@ -19,3 +19,7 @@ body {
 .container {
   padding: 25px;
 }
+.graphContainer {
+  height: 800px;
+  width: 100%;
+}

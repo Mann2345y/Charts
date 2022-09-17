@@ -6,11 +6,13 @@ const App = () => {
   return (
     <div className="container">
       <h1>Scatter Graph</h1>
-      <div style={{ height: "500px", width: "800px" }}>
+      <div className="graphContainer">
         <Scattergraph />
       </div>
       <h1>Bar Graph</h1>
-      <BarGraph />
+      <div className="graphContainer">
+        <BarGraph />
+      </div>
     </div>
   );
 };
