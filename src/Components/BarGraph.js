@@ -3,34 +3,46 @@ import * as echarts from "echarts";
 import wineData from "../data.json";
 
 const BarGraph = () => {
-  //logic to calculate malic acid averages for each alcohol category.
-  var malic_acid_1_count = 0,
-    malic_acid_2_count = 0,
-    malic_acid_3_count = 0,
-    malic_acid_1_sum = 0,
-    malic_acid_2_sum = 0,
-    malic_acid_3_sum = 0;
+  //initialise variables
+  var malic_acid_sums = [],
+    malic_acid_counts = [],
+    malic_acid_averages = [],
+    tempSum = 0,
+    tempCount = 0,
+    categories = [];
+  // loop to create array of categories
   wineData.forEach((item) => {
-    if (item["Alcohol"] === 1) {
-      malic_acid_1_count++;
-      malic_acid_1_sum += item["Malic Acid"];
-    } else if (item["Alcohol"] === 2) {
-      malic_acid_2_count++;
-      malic_acid_2_sum += item["Malic Acid"];
-    } else {
-      malic_acid_3_count++;
-      malic_acid_3_sum += item["Malic Acid"];
+    if (Object.keys(categories).length < 1) {
+      categories.push(item["Alcohol"]);
+    } else if (!categories.includes(item["Alcohol"])) {
+      categories.push(item["Alcohol"]);
     }
   });
-  var malic_acid_average_1 = malic_acid_1_sum / malic_acid_1_count;
-  var malic_acid_average_2 = malic_acid_2_sum / malic_acid_2_count;
-  var malic_acid_average_3 = malic_acid_3_sum / malic_acid_3_count;
+  // loop to calculate malic acid averages for each category
+  categories.forEach((category) => {
+    tempSum = 0;
+    tempCount = 0;
+    wineData.forEach((data) => {
+      if (data["Alcohol"] === category) {
+        tempSum += data["Malic Acid"];
+        tempCount++;
+      }
+    });
+    malic_acid_sums.push(tempSum);
+    malic_acid_counts.push(tempCount);
+  });
+  categories.forEach((index) => {
+    malic_acid_averages.push(
+      malic_acid_sums[index - 1] / malic_acid_counts[index - 1]
+    );
+  });
+
   // options for the chart
   const option = {
     xAxis: {
       name: "Alcohol",
       type: "category",
-      data: ["1", "2", "3"],
+      data: categories,
       nameLocation: "middle",
       nameGap: 50,
     },
@@ -60,11 +72,7 @@ const BarGraph = () => {
     },
     series: [
       {
-        data: [
-          malic_acid_average_1,
-          malic_acid_average_2,
-          malic_acid_average_3,
-        ],
+        data: malic_acid_averages,
         type: "bar",
       },
     ],
