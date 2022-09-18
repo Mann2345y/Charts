@@ -8,8 +8,11 @@ const Scattergraph = () => {
     dataSet.push([item["Color intensity"], item["Hue"]]);
   });
   const option = {
-    xAxis: { name: "Color Intensity" },
-    yAxis: { name: "Hue" },
+    xAxis: { name: "Color Intensity", nameLocation: "middle", nameGap: 50 },
+    yAxis: { name: "Hue", nameLocation: "middle", nameGap: 50 },
+    nameTextStyle: {
+      fontSize: "20",
+    },
     color: ["#4ecca3"],
     backgroundColor: "rgb(29,30,40)",
     textStyle: { color: "#eeeeee", fontSize: "15" },
@@ -45,8 +48,8 @@ const Scattergraph = () => {
       <div
         id="scattergraph"
         style={{
-          width: "100%",
-          height: "100%",
+          width: "80%",
+          height: "80%",
         }}
       ></div>
     </>

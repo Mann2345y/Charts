@@ -30,9 +30,18 @@ const BarGraph = () => {
       name: "Alcohol",
       type: "category",
       data: ["1", "2", "3"],
-      nameGap: 20,
+      nameLocation: "middle",
+      nameGap: 50,
     },
-    yAxis: { name: "Malic Acid (Average)", type: "value" },
+    yAxis: {
+      name: "Malic Acid (Average)",
+      type: "value",
+      nameLocation: "middle",
+      nameGap: 50,
+    },
+    nameTextStyle: {
+      fontSize: "20",
+    },
     color: ["#4ecca3"],
     backgroundColor: "rgb(29,30,40)",
     textStyle: { color: "#eeeeee", fontSize: "15" },
@@ -69,8 +78,8 @@ const BarGraph = () => {
       <div
         id="bargraph"
         style={{
-          width: "100%",
-          height: "100%",
+          width: "90%",
+          height: "90%",
         }}
       ></div>
     </>
