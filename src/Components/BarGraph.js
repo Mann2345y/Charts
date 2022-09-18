@@ -3,6 +3,7 @@ import * as echarts from "echarts";
 import wineData from "../data.json";
 
 const BarGraph = () => {
+  //logic to calculate malic acid averages for each alcohol category.
   var malic_acid_1_count = 0,
     malic_acid_2_count = 0,
     malic_acid_3_count = 0,
@@ -24,7 +25,7 @@ const BarGraph = () => {
   var malic_acid_average_1 = malic_acid_1_sum / malic_acid_1_count;
   var malic_acid_average_2 = malic_acid_2_sum / malic_acid_2_count;
   var malic_acid_average_3 = malic_acid_3_sum / malic_acid_3_count;
-
+  // options for the chart
   const option = {
     xAxis: {
       name: "Alcohol",
@@ -68,6 +69,7 @@ const BarGraph = () => {
       },
     ],
   };
+  //useEffect to initialise chart
   useEffect(() => {
     var barChart = document.getElementById("bargraph");
     var myChart = echarts.init(barChart);

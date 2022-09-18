@@ -3,10 +3,12 @@ import * as echarts from "echarts";
 import wineData from "../data.json";
 
 const Scattergraph = () => {
+  //logic to create data points array
   var dataSet = [];
   wineData.forEach((item) => {
     dataSet.push([item["Color intensity"], item["Hue"]]);
   });
+  //options object for the graph
   const option = {
     xAxis: { name: "Color Intensity", nameLocation: "middle", nameGap: 50 },
     yAxis: { name: "Hue", nameLocation: "middle", nameGap: 50 },
@@ -36,7 +38,7 @@ const Scattergraph = () => {
       },
     ],
   };
-
+  //useEffect to initialise graph
   useEffect(() => {
     var ScatterChart = document.getElementById("scattergraph");
     var myChart = echarts.init(ScatterChart);
