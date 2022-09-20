@@ -5,12 +5,13 @@ import wineData from "../data.json";
 const BarGraph = () => {
   //initialise variables
   var categories = new Set(),
-    sumArray = [],
-    countArray = [],
+    sumcountmap = new Map(),
     tempsum = 0,
     tempcount = 0,
     malic_acid_averages = [];
+
   // loop to create array of categories
+
   wineData.forEach((item) => {
     if (categories.size === 0) {
       categories.add(item["Alcohol"]);
@@ -22,20 +23,19 @@ const BarGraph = () => {
         tempsum += item["Malic Acid"];
       } else {
         categories.add(item["Alcohol"]);
-        sumArray.push(tempsum);
-        countArray.push(tempcount);
+        sumcountmap.set(tempsum, tempcount);
         tempsum = item["Malic Acid"];
         tempcount = 1;
       }
     }
   });
-  sumArray.push(tempsum);
-  countArray.push(tempcount);
-  console.log(sumArray, countArray, categories);
+  sumcountmap.set(tempsum, tempcount);
+
   // loop to calculate malic acid averages for each category
-  categories.forEach((index) => {
-    malic_acid_averages.push(sumArray[index - 1] / countArray[index - 1]);
-  });
+
+  for (const [tempsum, tempcount] of sumcountmap.entries()) {
+    malic_acid_averages.push(tempsum / tempcount);
+  }
 
   // options for the chart
   const option = {
