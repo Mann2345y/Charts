@@ -4,25 +4,37 @@ import wineData from "../data.json";
 
 const BarGraph = () => {
   //initialise variables
-  var tempSum = 0,
-    tempCount = 0,
-    categories = new Set(),
+  var categories = new Set(),
+    sumArray = [],
+    countArray = [],
+    tempsum = 0,
+    tempcount = 0,
     malic_acid_averages = [];
   // loop to create array of categories
   wineData.forEach((item) => {
-    categories.add(item["Alcohol"]);
-  });
-  // loop to calculate malic acid averages for each category
-  categories.forEach((category) => {
-    tempSum = 0;
-    tempCount = 0;
-    wineData.forEach((data) => {
-      if (data["Alcohol"] === category) {
-        tempSum += data["Malic Acid"];
-        tempCount++;
+    if (categories.size === 0) {
+      categories.add(item["Alcohol"]);
+      tempsum = item["Malic Acid"];
+      tempcount = 1;
+    } else {
+      if (categories.has(item["Alcohol"])) {
+        tempcount++;
+        tempsum += item["Malic Acid"];
+      } else {
+        categories.add(item["Alcohol"]);
+        sumArray.push(tempsum);
+        countArray.push(tempcount);
+        tempsum = item["Malic Acid"];
+        tempcount = 1;
       }
-    });
-    malic_acid_averages.push(tempSum / tempCount);
+    }
+  });
+  sumArray.push(tempsum);
+  countArray.push(tempcount);
+  console.log(sumArray, countArray, categories);
+  // loop to calculate malic acid averages for each category
+  categories.forEach((index) => {
+    malic_acid_averages.push(sumArray[index - 1] / countArray[index - 1]);
   });
 
   // options for the chart
